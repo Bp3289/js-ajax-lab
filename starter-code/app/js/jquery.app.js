@@ -1,34 +1,32 @@
-console.log("js is working");
+$(document).ready(function(){
+  $('form#new-cat').on('submit');
+  makeCats();
+});
 
-var cats = document.getElementById('cats');
+var cats = {
+	name: $('form#new-cat input#cat-name').val(),
+    note: $('form#new-cat textarea#cat-note').val()
+  };
+
+ $.post('https://ga-cat-rescue.herokuapp.com/api/cats', JSON.stringify(cats))
+    .done(function(data){
+      
+    });
+
+function makeCats(){
+  var gattos = $.get('https://ga-cat-rescue.herokuapp.com/api/cats')
+    .done(function(data){
+      console.log(data);
+      JSON.parse(data).forEach(function(cats){
+        console.log(cats);
+        
+      });
+    });
+	
 
 
-function makeResults() {
-	var results = document.createElement('li');
-	results.innerHTML = 'Cats';
-	results.className = 'results';
-	cats.appendChild(results);
+
 }
 
 
-$("form").on("submit", function(event){
-	event.preventDefault();
-	makeResults();
 
-var ajax = $.get('https://ga-cat-rescue.herokuapp.com/api/cats')
-	.done(function(data){
-	console.log(data);
-	});
-
-// var catinfo = ajax.innerHTML;
-// JSON.stringify(ajax);
-// $('.results').add(ajax);
-
-
-});
-
-// var looper = function() {
-// 	for (var i = 0; i < Things.length; i++) {
-// 		Things[i]
-// 	}
-// }
